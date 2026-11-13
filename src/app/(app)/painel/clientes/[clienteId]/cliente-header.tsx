@@ -7,7 +7,7 @@ import { CalendarPlus } from "lucide-react"
 import { ApiError } from "~/lib/errors"
 import { buildWhatsAppUrl, whatsAppDoCliente } from "~/lib/mensagem"
 import { QUERIES } from "~/lib/queries"
-import { formatDay, formatDaysAgo, formatPhone, formatTimestamp } from "~/lib/utils"
+import { dateKeyOf, formatDay, formatDaysAgo, formatPhone, formatTimestamp } from "~/lib/utils"
 import { getCliente } from "~/services/clientes"
 import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
@@ -60,7 +60,7 @@ export function ClienteHeader({ clienteId }: { clienteId: string }) {
                     <DataField label="Lembrete">{cliente.lembrete_whatsapp ? "Quer pelo WhatsApp" : "Não quer"}</DataField>
                     <DataField label="Última visita">{formatDaysAgo(cliente.ultima_visita)}</DataField>
                     <DataField label="Próximo horário">{formatTimestamp(cliente.proximo_horario)}</DataField>
-                    <DataField label="Cliente desde">{formatDay(cliente.criado_em)}</DataField>
+                    <DataField label="Cliente desde">{cliente.criado_em ? formatDay(dateKeyOf(cliente.criado_em)) : "—"}</DataField>
                 </div>
             </div>
         </div>

@@ -202,8 +202,8 @@ export function AgendarView({ diaInicial }: AgendarViewProps) {
 
             <PageHeader eyebrow="Novo agendamento" title="Marque seu horário" variant="marca" className="hidden md:flex" />
 
-            <div className="mt-8 grid gap-8 md:grid-cols-[1fr_340px] lg:grid-cols-[1fr_380px]">
-                <div className="flex flex-col gap-8">
+            <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1fr)_380px]">
+                <div className="flex min-w-0 flex-col gap-8">
                     <div className="grid gap-8 lg:grid-cols-2">
                         <section className={cn(passo !== 1 && "hidden md:block")}>
                             <TituloSecao numero={1}>Serviço</TituloSecao>
@@ -231,7 +231,7 @@ export function AgendarView({ diaInicial }: AgendarViewProps) {
                         </section>
                     </div>
 
-                    <section className={cn(passo !== 3 && "hidden md:block")}>
+                    <section className={cn("min-w-0", passo !== 3 && "hidden md:block")}>
                         <TituloSecao numero={3}>
                             Horário{diaEfetivo && ` · ${formatShortDay(diaEfetivo)}`}
                         </TituloSecao>

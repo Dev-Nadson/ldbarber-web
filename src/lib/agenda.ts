@@ -144,8 +144,9 @@ export function disponibilidadeDoDia({
             agora,
         })
         const livres = contarLivres(horarios)
-        // Hoje depois do expediente ainda "atende", mas não sobra horário: conta como lotado.
-        const atende = Boolean(expediente)
+        // Hoje depois do expediente não sobra horário nenhum na grade: conta como fechado, e não
+        // como lotado (lotado é ter horário e estarem todos ocupados).
+        const atende = Boolean(expediente) && horarios.length > 0
 
         return { barbeiroId, atende, horarios, livres, status: statusPorLivres(livres, atende) }
     })

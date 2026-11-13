@@ -16,7 +16,7 @@ import { Iniciais } from "~/components/iniciais"
 import { useDisponibilidade } from "./disponibilidade-store"
 
 export function DisponibilidadeView() {
-    const { mes, dia, shiftMonth, setDia } = useDisponibilidade()
+    const { mes, dia: diaEscolhido, escolhido, shiftMonth, setDia } = useDisponibilidade()
     const agora = useAgora()
     const hoje = today()
     const dias = useMemo(() => diasDoCalendario(mes), [mes])
@@ -39,6 +39,12 @@ export function DisponibilidadeView() {
             ])
         )
     }, [agora, barbeiroIds, dias, expedientes, intervalo, isPending, ocupacoes])
+
+    // Sem escolha do cliente, o dia do store sem vaga (hoje à noite) dá lugar ao primeiro com vaga.
+    const dia =
+        escolhido || (porDia.get(diaEscolhido)?.livres ?? 0) > 0
+            ? diaEscolhido
+            : (dias.find((d) => d >= hoje && d <= limite && (porDia.get(d)?.livres ?? 0) > 0) ?? diaEscolhido)
 
     const doDia = useMemo(
         () =>

@@ -98,7 +98,7 @@ const statusDiaVariants: Record<StatusDia, BadgeVariant> = {
 /** "• 6 HORÁRIOS", "• LOTADO", "• FECHADO" — o barbeiro (ou o dia) na disponibilidade. */
 export function StatusDiaBadge({ status, livres }: { status: StatusDia; livres: number }) {
     const texto =
-        status === StatusDias.LOTADO ? "Lotado" : status === StatusDias.FECHADO ? "Não atende" : pluralize(livres, "horário", "horários")
+        status === StatusDias.LOTADO ? "Lotado" : status === StatusDias.FECHADO ? "Fechado" : pluralize(livres, "horário", "horários")
 
     return <Selo variant={statusDiaVariants[status]}>{texto}</Selo>
 }

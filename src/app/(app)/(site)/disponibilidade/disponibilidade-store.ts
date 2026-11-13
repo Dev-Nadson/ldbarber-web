@@ -7,6 +7,8 @@ type DisponibilidadeState = {
     mes: string
     /** O dia escolhido (`YYYY-MM-DD`). */
     dia: string
+    /** O cliente tocou num dia. Sem isso, a tela abre no primeiro dia com vaga. */
+    escolhido: boolean
 }
 
 type DisponibilidadeStore = DisponibilidadeState & {
@@ -18,13 +20,14 @@ type DisponibilidadeStore = DisponibilidadeState & {
 const useDisponibilidade = create<DisponibilidadeStore>((set, get) => ({
     mes: `${today().slice(0, 7)}-01`,
     dia: today(),
+    escolhido: false,
 
     shiftMonth: (amount) => {
         const mes = addMonths(get().mes, amount)
 
-        set({ mes, dia: mes.slice(0, 7) === today().slice(0, 7) ? today() : mes })
+        set({ mes, dia: mes.slice(0, 7) === today().slice(0, 7) ? today() : mes, escolhido: false })
     },
-    setDia: (dia) => set({ dia }),
+    setDia: (dia) => set({ dia, escolhido: true }),
 }))
 
 export { useDisponibilidade }
